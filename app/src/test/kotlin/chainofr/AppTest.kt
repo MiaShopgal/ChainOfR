@@ -24,10 +24,16 @@ class AppTest {
     @Test
     fun `Given a spam mail and confirmed it's been deleted`(){
 
-        givenASpamMail()
+        givenAMail("best buy")
         whenASpamHandlerIsReady()
         thenSpamMailBeenProcessed()
 
+    }
+
+    @Test
+    fun `Given a Fan mail and confirmed it's been forawrd to CEO`(){
+        givenAMail("big fan")
+        
     }
 
     private fun thenSpamMailBeenProcessed() {
@@ -41,9 +47,9 @@ class AppTest {
 
     }
 
-    private fun givenASpamMail() {
+    private fun givenAMail(title:String) {
 
-        mail = Mail("best buy")
+        mail = Mail(title)
 
     }
 }
