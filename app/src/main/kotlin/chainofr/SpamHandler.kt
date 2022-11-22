@@ -5,14 +5,14 @@ class SpamHandler(var next: Handler? = null) : Handler {
 
         println("Spam handler is handling ...${input.title}")
 
-        if (input.title.contains("buy")) {
+        return if (input.title.contains("buy")) {
 
-            return "Spam mail handled by deleting"
+            "Spam mail handled by deleting"
 
         } else {
-            
+
             next?.handleRequest(input)
-            return "Passing to next Handler"
+            "Passing to next Handler"
 
         }
     }
