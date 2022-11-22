@@ -38,7 +38,13 @@ class AppTest {
         givenAMail("big fan")
         whenASpamHandlerIsReady()
         whenAFanHandlerIsReady()
+        thenFanMailBeenProcesssed()
 
+    }
+
+    private fun thenFanMailBeenProcesssed() {
+        val result = fanHandler.handleRequest(mail)
+        assertContains(result, "CEO")
     }
 
     private fun whenAFanHandlerIsReady() {
