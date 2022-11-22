@@ -22,7 +22,7 @@ class AppTest {
         println("Happy Ending")
     }
     @Test
-    fun `Using BDD`(){
+    fun `Given a spam mail and confirmed it's been deleted`(){
 
         givenASpamMail()
         whenASpamHandlerIsReady()
