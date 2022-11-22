@@ -7,6 +7,7 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 class AppTest {
+    private lateinit var spamHandler: SpamHandler
     private lateinit var mail: Mail
 
     @Test fun appHasAGreeting() {
@@ -23,12 +24,19 @@ class AppTest {
     fun `Using BDD`(){
 
         givenASpamMail()
-//        whenASpamReceived()
+        whenASpamReceived()
 //        thenSpamMailBeenProcessed()
 
     }
 
+    private fun whenASpamReceived() {
+
+        spamHandler = SpamHandler()
+
+    }
+
     private fun givenASpamMail() {
+        
         mail = Mail("best buy")
 
     }
