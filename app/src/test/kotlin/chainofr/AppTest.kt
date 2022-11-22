@@ -25,4 +25,8 @@ class AppTest {
         thenSpamMailBeenProcessed()
 
     }
+
+    private fun givenASpamMail() {
+        mail = SpamMail("best buy")
+    }
 }
