@@ -4,6 +4,7 @@
 package chainofr
 
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertNotNull
 
 class AppTest {
@@ -24,19 +25,24 @@ class AppTest {
     fun `Using BDD`(){
 
         givenASpamMail()
-        whenASpamReceived()
-//        thenSpamMailBeenProcessed()
+        whenASpamHandlerIsReady()
+        thenSpamMailBeenProcessed()
 
     }
 
-    private fun whenASpamReceived() {
+    private fun thenSpamMailBeenProcessed() {
+        val result = spamHandler.handleRequest(mail)
+        assertContains(result, "deleting")
+    }
+
+    private fun whenASpamHandlerIsReady() {
 
         spamHandler = SpamHandler()
 
     }
 
     private fun givenASpamMail() {
-        
+
         mail = Mail("best buy")
 
     }
