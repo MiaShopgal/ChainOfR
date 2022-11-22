@@ -11,4 +11,10 @@ class AppTest {
         val classUnderTest = App()
         assertNotNull(classUnderTest.greeting, "app should have a greeting")
     }
+
+    @Test
+    fun `Given a valid source and validate it is the same` (){
+        assert(true)
+        println("Happy Ending")
+    }
 }
