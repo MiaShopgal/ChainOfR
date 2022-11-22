@@ -17,4 +17,12 @@ class AppTest {
         assert(true)
         println("Happy Ending")
     }
+    @Test
+    fun `Using BDD`(){
+
+        givenASpamMail()
+        whenASpamReceived()
+        thenSpamMailBeenProcessed()
+
+    }
 }
