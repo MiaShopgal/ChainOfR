@@ -1,5 +1,5 @@
 package chainofr
 
-class Mail(val title: String) {
+class Mail(val title: String?) {
 
 }

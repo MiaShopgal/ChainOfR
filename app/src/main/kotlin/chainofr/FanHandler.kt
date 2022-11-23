@@ -1,7 +1,7 @@
 package chainofr
 
 class FanHandler(private val title:String?, var next:Handler? = null):Handler {
-    override fun handleRequest(input: String) = "$title".let {
+    override fun handleRequest(input: String?) = "$title".let {
 
         println("    FanHandler is handling ... ${it.uppercase()}")
 

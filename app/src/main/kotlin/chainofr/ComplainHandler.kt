@@ -1,7 +1,7 @@
 package chainofr
 
 class ComplainHandler(private val title: String?, var next: Handler? = null) : Handler {
-    override fun handleRequest(input: String): String = "$title".let {
+    override fun handleRequest(input: String?): String = "$title".let {
 
         println("    ComplainHandler is handling ... ${it.uppercase()}")
 

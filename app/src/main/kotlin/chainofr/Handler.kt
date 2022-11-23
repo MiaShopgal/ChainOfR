@@ -2,6 +2,6 @@ package chainofr
 
 interface Handler {
 
-    fun handleRequest(input: String): String
+    fun handleRequest(input: String?): String
 
 }

@@ -6,11 +6,12 @@ package chainofr
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class AppTest {
     private lateinit var newLocHandler: NewLocHandler
     private lateinit var complainHandler: ComplainHandler
-    private lateinit var currentHandler: Handler
+    private var currentHandler: Handler? = null
     private lateinit var fanHandler: FanHandler
     private lateinit var spamHandler: SpamHandler
     private lateinit var mail: Mail
@@ -25,6 +26,14 @@ class AppTest {
     fun `Given a valid source and validate it is the same`() {
         assert(true)
         println("Happy Ending")
+    }
+
+    @Test
+    fun `Given a null title mail and confirmed it won't be handled`(){
+
+        givenAMail(null)
+        thenNoMailBeenProcessed()
+
     }
 
     @Test
@@ -82,10 +91,20 @@ class AppTest {
 
     }
 
+
+    private fun thenNoMailBeenProcessed() {
+
+        val result = currentHandler?.handleRequest(mail.title)
+        assertNull(result)
+        println("Null Ending")
+
+    }
+
     private fun thenMailBeenProcessed( target:String) {
 
-        val result = currentHandler.handleRequest(mail.title)
+        val result = currentHandler?.handleRequest(mail.title)
 
+        assertNotNull(result)
         assertContains(result, target)
     }
 
@@ -96,7 +115,7 @@ class AppTest {
 
     }
 
-    private fun givenAMail(title: String) {
+    private fun givenAMail(title: String?) {
 
         mail = Mail(title)
 

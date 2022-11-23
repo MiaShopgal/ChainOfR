@@ -1,7 +1,7 @@
 package chainofr
 
 class NewLocHandler(private val title: String?, var next: Handler? = null) : Handler {
-    override fun handleRequest(input: String): String = "$title".let {
+    override fun handleRequest(input: String?): String = "$title".let {
 
         println("    NewLocHandler is handling ... ${it.uppercase()}")
 
