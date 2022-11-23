@@ -3,7 +3,7 @@ package chainofr
 class FanHandler(private val title:String?, var next:Handler? = null):Handler {
     override fun handleRequest(input: String) = "$title".let {
 
-        println("FanHandler is handeling ... $it")
+        println("FanHandler is handling ... $it")
 
         if (title?.contains("fan") == true) {
 
@@ -14,7 +14,7 @@ class FanHandler(private val title:String?, var next:Handler? = null):Handler {
         }
         else{
 
-            println("FanHandler cann't handel $it, passing to next")
+            println("FanHandler cann't handle $it, passing to next")
             next?.handleRequest(it) ?: it
 
         }
