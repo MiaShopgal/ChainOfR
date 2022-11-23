@@ -25,7 +25,7 @@ class AppTest {
     @Test
     fun `Given a valid source and validate it is the same`() {
         assert(true)
-        println("Happy Ending")
+        println("Happy Ending\n")
     }
 
     @Test
@@ -96,7 +96,7 @@ class AppTest {
 
         val result = currentHandler?.handleRequest(mail.title)
         assertNull(result)
-        println("Null Ending")
+        println("Null Ending\n")
 
     }
 
