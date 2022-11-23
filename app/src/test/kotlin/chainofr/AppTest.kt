@@ -8,6 +8,8 @@ import kotlin.test.assertContains
 import kotlin.test.assertNotNull
 
 class AppTest {
+    private lateinit var newLocHandler: NewLocHandler
+    private lateinit var complainHandler: ComplainHandler
     private lateinit var currentHandler: Handler
     private lateinit var fanHandler: FanHandler
     private lateinit var spamHandler: SpamHandler
@@ -30,7 +32,7 @@ class AppTest {
 
         givenAMail("best buy")
         whenASpamHandlerIsReady()
-        thenSpamMailBeenProcessed()
+        thenMailBeenProcessed("deleting")
 
     }
 
@@ -38,7 +40,7 @@ class AppTest {
     fun `Given a Fan mail and confirmed it's been forawrd to CEO`() {
         givenAMail("big fan")
         whenAFanHandlerIsReady()
-        thenFanMailBeenProcesssed()
+        thenMailBeenProcessed("CEO")
 
     }
 
@@ -46,29 +48,45 @@ class AppTest {
     fun `Given a Spam mail and when a spam and a fan handler are ready`() {
         givenAMail("best buy")
         whenAFanHandlerIsReady()
-        thenSpamMailBeenProcessed()
+        thenMailBeenProcessed("deleting")
 
     }
 
-    private fun thenFanMailBeenProcesssed() {
-        val result = fanHandler.handleRequest(mail.title)
-        assertContains(result, "CEO")
+    @Test
+    fun `Given a New location mail and when all the handlers are ready`() {
+
+        givenAMail("new loc at")
+        whenAllHandlersAreReady()
+        thenMailBeenProcessed("business")
+
     }
+
+    private fun whenAllHandlersAreReady() {
+        spamHandler = SpamHandler(mail.title)
+        fanHandler = FanHandler(mail.title)
+        complainHandler = ComplainHandler(mail.title)
+        newLocHandler = NewLocHandler(mail.title)
+        spamHandler.next = fanHandler
+        fanHandler.next = complainHandler
+        complainHandler.next = newLocHandler
+        currentHandler = spamHandler
+    }
+
 
     private fun whenAFanHandlerIsReady() {
 
         spamHandler = SpamHandler(mail.title)
         fanHandler = FanHandler(mail.title)
-        fanHandler.next = spamHandler
-        currentHandler = fanHandler
+        spamHandler.next = fanHandler
+        currentHandler = spamHandler
 
     }
 
-    private fun thenSpamMailBeenProcessed() {
+    private fun thenMailBeenProcessed( target:String) {
 
         val result = currentHandler.handleRequest(mail.title)
 
-        assertContains(result, "deleting")
+        assertContains(result, target)
     }
 
     private fun whenASpamHandlerIsReady() {
