@@ -3,18 +3,18 @@ package chainofr
 class SpamHandler(private val title:String?, var next: Handler? = null) : Handler {
     override fun handleRequest(input: String) = "$title".let {
 
-        println("SpamHandler is handling ... $it")
+        println("    SpamHandler is handling ... ${it.uppercase()}")
 
         if (title?.contains("buy") == true) {
 
-            val result = "Spam mail handled by deleting"
+            val result = "### Spam mail handled by deleting  ###\n"
             println(result)
             return result
 
         }
         else{
 
-            println("SpamHandler  cann't handle $it, passing to next")
+            println(">>> SpamHandler  cann't handle $it, passing to next")
             next?.handleRequest(it) ?: it
 
         }
