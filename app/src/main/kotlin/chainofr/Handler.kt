@@ -1,5 +1,7 @@
 package chainofr
 
 interface Handler {
-    fun handleRequest(input: Mail): String
+
+    fun handleRequest(input: String): String
+
 }

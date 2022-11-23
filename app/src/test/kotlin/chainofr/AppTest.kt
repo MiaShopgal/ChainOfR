@@ -8,6 +8,7 @@ import kotlin.test.assertContains
 import kotlin.test.assertNotNull
 
 class AppTest {
+    private lateinit var currentHandler: Handler
     private lateinit var fanHandler: FanHandler
     private lateinit var spamHandler: SpamHandler
     private lateinit var mail: Mail
@@ -36,30 +37,44 @@ class AppTest {
     @Test
     fun `Given a Fan mail and confirmed it's been forawrd to CEO`() {
         givenAMail("big fan")
-        whenASpamHandlerIsReady()
         whenAFanHandlerIsReady()
         thenFanMailBeenProcesssed()
 
     }
 
+    @Test
+    fun `Given a Spam mail and when a spam and a fan handler are ready`() {
+        givenAMail("best buy")
+        whenAFanHandlerIsReady()
+        thenSpamMailBeenProcessed()
+
+    }
+
     private fun thenFanMailBeenProcesssed() {
-        val result = fanHandler.handleRequest(mail)
+        val result = fanHandler.handleRequest(mail.title)
         assertContains(result, "CEO")
     }
 
     private fun whenAFanHandlerIsReady() {
-        fanHandler = FanHandler()
+
+        spamHandler = SpamHandler(mail.title)
+        fanHandler = FanHandler(mail.title)
         fanHandler.next = spamHandler
+        currentHandler = fanHandler
+
     }
 
     private fun thenSpamMailBeenProcessed() {
-        val result = spamHandler.handleRequest(mail)
+
+        val result = currentHandler.handleRequest(mail.title)
+
         assertContains(result, "deleting")
     }
 
     private fun whenASpamHandlerIsReady() {
 
-        spamHandler = SpamHandler()
+        spamHandler = SpamHandler(mail.title)
+        currentHandler = spamHandler
 
     }
 

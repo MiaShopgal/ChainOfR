@@ -1,18 +1,21 @@
 package chainofr
 
-class FanHandler(var next:Handler? = null):Handler {
-    override fun handleRequest(input: Mail): String {
-        
-        println("Fan Handler is handling ...${input.title}")
+class FanHandler(private val title:String?, var next:Handler? = null):Handler {
+    override fun handleRequest(input: String) = "$title".let {
 
-        return if (input.title.contains("fan")) {
+        println("FanHandler is handeling ... $it")
 
-            "Fan mail forwarded to CEO"
+        if (title?.contains("fan") == true) {
 
-        } else {
+            val result = "Fan mail handled by forwarding to CEO"
+            println(result)
+            return result
 
-            next?.handleRequest(input)
-            "Passing to next Handler"
+        }
+        else{
+
+            println("FanHandler cann't handel $it, passing to next")
+            next?.handleRequest(it) ?: it
 
         }
     }
